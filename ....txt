@@ -1,7 +1,7 @@
 
-==================================================
+
 1. PLATAFORMA DE STREAMING
-==================================================
+
 
 import java.util.ArrayList;
 import java.util.List;
