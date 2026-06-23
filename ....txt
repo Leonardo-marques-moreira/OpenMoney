@@ -1,0 +1,419 @@
+REVISAO SUB POO - SOLUCOES DAS QUESTOES DE CODIGO
+
+Este arquivo reúne as solucoes das questoes praticas encontradas nas provas e nos conteudos do semestre.
+
+==================================================
+1. PLATAFORMA DE STREAMING
+==================================================
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Usuario {
+    private String nome;
+    private String email;
+
+    public Usuario(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+    public void setNome(String nome) { this.nome = nome; }
+    public void setEmail(String email) { this.email = email; }
+
+    public void reproduzirMusica(String nomeMusica) {
+        System.out.println(nome + " ouvindo: " + nomeMusica);
+    }
+}
+
+class UsuarioGratuito extends Usuario {
+    private int reproducoesRestantes;
+
+    public UsuarioGratuito(String nome, String email, int reproducoesRestantes) {
+        super(nome, email);
+        this.reproducoesRestantes = reproducoesRestantes;
+    }
+
+    @Override
+    public void reproduzirMusica(String nomeMusica) {
+        if (reproducoesRestantes <= 0) {
+            System.out.println("Limite diario atingido. Assine o Premium!");
+            return;
+        }
+        System.out.println("[ANUNCIO] " + nomeMusica + " [ANUNCIO]");
+        reproducoesRestantes--;
+    }
+}
+
+class UsuarioPremium extends Usuario {
+    private String plano;
+
+    public UsuarioPremium(String nome, String email, String plano) {
+        super(nome, email);
+        this.plano = plano;
+    }
+
+    public String getPlano() { return plano; }
+    public void setPlano(String plano) { this.plano = plano; }
+
+    @Override
+    public void reproduzirMusica(String nomeMusica) {
+        System.out.println("♪ " + nomeMusica + " ♪");
+    }
+}
+
+class Plataforma {
+    private List<Usuario> usuarios = new ArrayList<>();
+
+    public void adicionarUsuario(Usuario u) {
+        usuarios.add(u);
+    }
+
+    public void realizarReproducao(String musica) {
+        for (Usuario u : usuarios) {
+            u.reproduzirMusica(musica);
+        }
+    }
+}
+
+public class MainStreaming {
+    public static void main(String[] args) {
+        Plataforma plataforma = new Plataforma();
+        plataforma.adicionarUsuario(new UsuarioGratuito("Ana", "ana@email.com", 2));
+        plataforma.adicionarUsuario(new UsuarioPremium("Leo", "leo@email.com", "Mensal"));
+
+        plataforma.realizarReproducao("Musica 1");
+        plataforma.realizarReproducao("Musica 2");
+        plataforma.realizarReproducao("Musica 3");
+    }
+}
+
+==================================================
+2. SISTEMA DE PEDIDO DE SUPERMERCADO
+==================================================
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Produto {
+    private String nome;
+    private double precoUnitario;
+
+    public Produto(String nome, double precoUnitario) {
+        this.nome = nome;
+        this.precoUnitario = precoUnitario;
+    }
+
+    public String getNome() { return nome; }
+    public double getPrecoUnitario() { return precoUnitario; }
+    public void setNome(String nome) { this.nome = nome; }
+    public void setPrecoUnitario(double precoUnitario) { this.precoUnitario = precoUnitario; }
+}
+
+class ItemPedido {
+    private Produto produto;
+    private int quantidade;
+
+    public ItemPedido(Produto produto, int quantidade) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+
+    public double getSubtotal() {
+        return produto.getPrecoUnitario() * quantidade;
+    }
+}
+
+class FormaPagamento {
+    private double valorPago;
+
+    public FormaPagamento(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public double getValorPago() { return valorPago; }
+    public void setValorPago(double valorPago) { this.valorPago = valorPago; }
+
+    public void realizarPagamento() {
+        System.out.println("Pagamento de R$ " + valorPago + " realizado.");
+    }
+}
+
+class PagamentoDinheiro extends FormaPagamento {
+    public PagamentoDinheiro(double valorPago) {
+        super(valorPago);
+    }
+
+    @Override
+    public void realizarPagamento() {
+        System.out.println("Pago em dinheiro: R$ " + getValorPago());
+    }
+}
+
+class PagamentoCartao extends FormaPagamento {
+    private String bandeira;
+
+    public PagamentoCartao(double valorPago, String bandeira) {
+        super(valorPago);
+        this.bandeira = bandeira;
+    }
+
+    @Override
+    public void realizarPagamento() {
+        System.out.println("Cartao " + bandeira + ": R$ " + getValorPago());
+    }
+}
+
+class PagamentoPix extends FormaPagamento {
+    public PagamentoPix(double valorPago) {
+        super(valorPago);
+    }
+
+    @Override
+    public void realizarPagamento() {
+        System.out.println("PIX confirmado: R$ " + getValorPago());
+    }
+}
+
+class Pedido {
+    private List<ItemPedido> itens = new ArrayList<>();
+    private List<FormaPagamento> pagamentos = new ArrayList<>();
+
+    public void adicionarItem(ItemPedido item) {
+        itens.add(item);
+    }
+
+    public void adicionarPagamento(FormaPagamento pagamento) {
+        pagamentos.add(pagamento);
+    }
+
+    public double calcularTotal() {
+        double total = 0;
+        for (ItemPedido item : itens) {
+            total += item.getSubtotal();
+        }
+        return total;
+    }
+
+    public void fecharPedido() {
+        System.out.println("Total do pedido: R$ " + calcularTotal());
+        for (FormaPagamento pagamento : pagamentos) {
+            pagamento.realizarPagamento();
+        }
+    }
+}
+
+public class MainPedido {
+    public static void main(String[] args) {
+        Produto arroz = new Produto("Arroz", 25.0);
+        Produto leite = new Produto("Leite", 6.5);
+
+        Pedido pedido = new Pedido();
+        pedido.adicionarItem(new ItemPedido(arroz, 2));
+        pedido.adicionarItem(new ItemPedido(leite, 3));
+
+        pedido.adicionarPagamento(new PagamentoDinheiro(30.0));
+        pedido.adicionarPagamento(new PagamentoPix(39.5));
+
+        pedido.fecharPedido();
+    }
+}
+
+==================================================
+3. SISTEMA DE BONIFICACAO DO RH
+==================================================
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Funcionario {
+    private String nome;
+    private double salario;
+
+    public Funcionario(String nome, double salario) {
+        this.nome = nome;
+        this.salario = salario;
+    }
+
+    public String getNome() { return nome; }
+    public double getSalario() { return salario; }
+    public void setNome(String nome) { this.nome = nome; }
+    public void setSalario(double salario) { this.salario = salario; }
+
+    public double calcularBonus() {
+        return 0;
+    }
+}
+
+class Supervisor extends Funcionario {
+    public Supervisor(String nome, double salario) {
+        super(nome, salario);
+    }
+
+    @Override
+    public double calcularBonus() {
+        return getSalario() * 0.05;
+    }
+}
+
+class Gerente extends Funcionario {
+    public Gerente(String nome, double salario) {
+        super(nome, salario);
+    }
+
+    @Override
+    public double calcularBonus() {
+        return getSalario() * 0.15;
+    }
+}
+
+class Diretor extends Funcionario {
+    public Diretor(String nome, double salario) {
+        super(nome, salario);
+    }
+
+    @Override
+    public double calcularBonus() {
+        return getSalario() * 0.25;
+    }
+}
+
+class CalculadoraBonus {
+    private List<Funcionario> funcionarios = new ArrayList<>();
+
+    public void adicionarFuncionario(Funcionario f) {
+        funcionarios.add(f);
+    }
+
+    public void exibirBonificacoes() {
+        for (Funcionario f : funcionarios) {
+            System.out.println(
+                "Nome: " + f.getNome() +
+                " | Cargo: " + f.getClass().getSimpleName() +
+                " | Bonus: R$ " + f.calcularBonus()
+            );
+        }
+    }
+}
+
+public class MainBonus {
+    public static void main(String[] args) {
+        CalculadoraBonus calc = new CalculadoraBonus();
+
+        Funcionario f1 = new Supervisor("Joao", 3000);
+        Funcionario f2 = new Gerente("Maria", 5000);
+        Funcionario f3 = new Diretor("Carlos", 10000);
+
+        calc.adicionarFuncionario(f1);
+        calc.adicionarFuncionario(f2);
+        calc.adicionarFuncionario(f3);
+
+        calc.exibirBonificacoes();
+    }
+}
+
+==================================================
+4. PROFESSORREPOSITORY COM INSERT E FINDALL
+==================================================
+
+import java.sql.*;
+import java.util.ArrayList;
+
+class Professor {
+    private Long id;
+    private String nome;
+    private Boolean ativo;
+
+    public Professor() {}
+
+    public Professor(String nome, Boolean ativo) {
+        this.nome = nome;
+        this.ativo = ativo;
+    }
+
+    public Long getId() { return id; }
+    public String getNome() { return nome; }
+    public Boolean getAtivo() { return ativo; }
+    public void setId(Long id) { this.id = id; }
+    public void setNome(String nome) { this.nome = nome; }
+    public void setAtivo(Boolean ativo) { this.ativo = ativo; }
+}
+
+class ConnectionFactory {
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/prova",
+            "postgres",
+            "postgres"
+        );
+    }
+}
+
+class ProfessorRepository {
+    private String INSERT = "INSERT INTO professor(nome, ativo) VALUES(?, ?);";
+    private String FIND_ALL = "SELECT id, nome, ativo FROM professor;";
+
+    public void insert(Professor prof) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        try {
+            conn = new ConnectionFactory().getConnection();
+            pstm = conn.prepareStatement(INSERT);
+            pstm.setString(1, prof.getNome());
+            pstm.setBoolean(2, prof.getAtivo());
+            pstm.executeUpdate();
+        } finally {
+            if (pstm != null) pstm.close();
+            if (conn != null) conn.close();
+        }
+    }
+
+    public ArrayList<Professor> findAll() throws SQLException {
+        ArrayList<Professor> lista = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            conn = new ConnectionFactory().getConnection();
+            pstm = conn.prepareStatement(FIND_ALL);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Professor prof = new Professor();
+                prof.setId(rs.getLong("id"));
+                prof.setNome(rs.getString("nome"));
+                prof.setAtivo(rs.getBoolean("ativo"));
+                lista.add(prof);
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (pstm != null) pstm.close();
+            if (conn != null) conn.close();
+        }
+
+        return lista;
+    }
+}
+
+==================================================
+5. CLASSE DE CONEXAO COM POSTGRES
+==================================================
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConnectionFactory {
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/prova",
+            "postgres",
+            "postgres"
+        );
+    }
+}
+
