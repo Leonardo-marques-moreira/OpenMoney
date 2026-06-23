@@ -1,0 +1,376 @@
+
+
+ENUNCIADO:
+"Sobre a relacao entre classe e objeto em Java, assinale a alternativa CORRETA:"
+
+Alternativas identificadas no PDF:
+- Uma classe e um objeto sao a mesma coisa; o termo "objeto" e apenas um sinonimo utilizado em tempo de execucao.
+- Uma classe e a representacao de um objeto ja existente na memoria; criar a classe significa que o objeto ja esta disponivel para uso.
+- A classe funciona como um molde ou especificacao: ela define atributos e metodos comuns, mas nao ocupa espaco de memoria por si so. O objeto e a instancia concreta criada a partir dessa classe, com valores proprios armazenados na memoria.
+- Em Java, e possivel utilizar os metodos de uma classe sem criar nenhum objeto, pois a classe ja contem os dados.
+- Um objeto pode existir independentemente de uma classe, desde que seus atributos sejam declarados diretamente no metodo main.
+
+RESPOSTA:
+A correta e:
+"A classe funciona como um molde ou especificacao: ela define atributos e metodos comuns, mas nao ocupa espaco de memoria por si so. O objeto e a instancia concreta criada a partir dessa classe, com valores proprios armazenados na memoria."
+
+EXPLICACAO:
+Classe e o molde. Objeto e a instancia concreta criada a partir dela.
+
+
+QUESTAO 2
+ENUNCIADO:
+"Um desenvolvedor esta criando as classes Funcionario, Gerente e Diretor em pacotes distintos, onde Gerente e Diretor herdam de Funcionario. Ele quer que o atributo salario seja acessivel diretamente nas subclasses, mas invisivel para classes que nao fazem parte da hierarquia. Qual modificador e o MAIS ADEQUADO para salario?"
+
+Alternativas identificadas no PDF:
+- public
+- private
+- default (sem modificador)
+- protected
+- Qualquer modificador funciona
+
+RESPOSTA:
+A correta e:
+"protected"
+
+EXPLICACAO:
+protected permite acesso nas subclasses, inclusive em pacotes diferentes, sem abrir o atributo para qualquer classe externa como aconteceria com public.
+
+
+QUESTAO 3
+ENUNCIADO:
+"Um colega afirma que o codigo abaixo NAO compila. Ele esta certo? Qual e a justificativa CORRETA?"
+
+Pelo contexto das alternativas, a questao tratava de dois metodos com o mesmo nome e mesmos parametros, mas com tipos de retorno diferentes.
+
+Alternativas identificadas no PDF:
+- O colega esta errado; os dois metodos tem tipos de retorno diferentes (int e double), o que e suficiente para caracterizar sobrecarga em Java.
+- O colega esta certo; Java nao permite dois metodos com o mesmo nome na mesma classe, independentemente dos parametros.
+- O colega esta certo; a assinatura de um metodo em Java e composta pelo nome e pelos tipos dos parametros. Como ambos os metodos recebem (int, int), suas assinaturas sao identicas - a diferenca no tipo de retorno nao e considerada e o compilador rejeita o codigo.
+- O colega esta errado; Java escolhe o metodo correto com base no tipo de retorno esperado pelo contexto da chamada.
+- O colega esta certo; calcular e uma palavra reservada da API Java e nao pode ser usada como nome de metodo.
+
+RESPOSTA:
+A correta e:
+"O colega esta certo; a assinatura de um metodo em Java e composta pelo nome e pelos tipos dos parametros. Como ambos os metodos recebem (int, int), suas assinaturas sao identicas - a diferenca no tipo de retorno nao e considerada e o compilador rejeita o codigo."
+
+EXPLICACAO:
+Em Java, o tipo de retorno nao diferencia sobrecarga.
+
+
+QUESTAO 4
+ENUNCIADO:
+"Sobre o uso de this e super em construtores de classes com heranca, analise as afirmativas:
+I. A chamada super() dentro de um construtor de subclasse invoca o construtor da superclasse e deve ser obrigatoriamente a primeira instrucao do construtor.
+II. A palavra-chave this referencia o proprio objeto em execucao e pode ser usada para acessar atributos e metodos da classe atual, evitando ambiguidade com parametros de mesmo nome.
+III. Quando nenhum super() e escrito pelo programador, o compilador insere automaticamente uma chamada a super() sem parametros - o que causara erro se a superclasse nao possuir construtor padrao.
+IV. Um construtor pode chamar this() para invocar outro construtor da mesma classe e super() para invocar o construtor da superclasse na mesma instrucao.
+Estao CORRETAS:"
+
+Alternativas identificadas no PDF:
+- Apenas I e IV.
+- Apenas II e III.
+- Apenas I, II e III.
+- I, II, III e IV.
+- Apenas I e II.
+
+RESPOSTA:
+A correta e:
+"Apenas I, II e III."
+
+EXPLICACAO:
+A IV esta errada porque um construtor nao pode chamar this() e super() juntos.
+
+
+QUESTAO 5
+ENUNCIADO:
+"Analise as seguintes afirmacoes sobre construtores em Java:
+I. Construtores tem o mesmo nome da classe e nao possuem tipo de retorno, nem mesmo void.
+II. Um construtor pode ser sobrecarregado desde que possua assinaturas diferentes.
+III. Construtores sao automaticamente herdados por subclasses, a menos que sejam privados.
+IV. Um construtor e invocado automaticamente no momento da criacao de um objeto com o operador new.
+Com base no conteudo estudado, assinale a alternativa correta:"
+
+Alternativas identificadas no PDF:
+- Apenas as afirmacoes I, II e IV estao corretas.
+- Apenas as afirmacoes II, III e IV estao corretas.
+- Todas as afirmacoes estao corretas.
+- Apenas as afirmacoes I e IV estao corretas.
+
+RESPOSTA:
+A correta e:
+"Apenas as afirmacoes I, II e IV estao corretas."
+
+EXPLICACAO:
+A III esta errada porque construtores nao sao herdados.
+
+
+QUESTAO 6
+ENUNCIADO COMPLETO:
+"Uma plataforma de streaming de musicas possui dois tipos de usuario.
+Modele e implemente o sistema:
+ - Usuario (superclasse): atributos nome (String) e email (String); construtor com parametros, getters, setters e o metodo reproduzirMusica(String nomeMusica) - que por padrao apenas imprime o nome da musica.
+ - UsuarioGratuito (herda de Usuario): sobrescreve reproduzirMusica() exibindo "[ANUNCIO] <nome> [ANUNCIO]". Possui atributo reproducoesRestantes (int); ao reproduzir, decrementa o contador. Se o contador ja for zero, exibe "Limite diario atingido. Assine o Premium!" sem reproduzir.
+ - UsuarioPremium (herda de Usuario): sobrescreve reproduzirMusica() exibindo " ♪ <nome> ♪ ". Possui atributo plano (String: "Mensal" ou "Anual").
+ - Plataforma: possui uma lista de Usuario, metodos adicionarUsuario(Usuario u) e realizarReproducao(String musica) - que percorre a lista e chama reproduzirMusica() para cada usuario SEM usar instanceof ou if/else para distingui-los.
+
+a) Implemente todas as classes com encapsulamento, heranca, sobrescrita e boas praticas.
+b) No main: instancie a Plataforma, adicione um UsuarioGratuito (limite 2) e um UsuarioPremium. Chame realizarReproducao() tres vezes com musicas diferentes e registre nos comentarios a saida esperada.
+c) Por que o metodo realizarReproducao() da Plataforma nao precisa saber se o usuario e Gratuito ou Premium para funcionar corretamente? Explique o conceito envolvido em ate duas linhas."
+
+RESPOSTA ESPERADA:
+- Criar a superclasse Usuario.
+- Criar UsuarioGratuito e UsuarioPremium herdando de Usuario.
+- Sobrescrever reproduzirMusica() nas subclasses.
+- Criar Plataforma com uma lista de Usuario.
+- Em realizarReproducao(), percorrer a lista e chamar reproduzirMusica() diretamente, sem instanceof e sem if/else.
+
+RESPOSTA CONCEITUAL DA LETRA C:
+Porque o comportamento especifico esta nas subclasses e o metodo correto e resolvido em tempo de execucao por polimorfismo.
+
+
+QUESTAO 7
+ENUNCIADO COMPLETO:
+"Um supermercado precisa de um sistema para gerenciar pedidos de clientes.
+Implemente:
+ - Produto: nome (String) e precoUnitario (double). Construtor completo, getters e setters.
+ - ItemPedido: associa um Produto e uma quantidade (int). Metodo getSubtotal() que retorna precoUnitario x quantidade.
+ - FormaPagamento (superclasse): atributo valorPago (double) e metodo realizarPagamento() que imprime "Pagamento de R$ <valor> realizado.". Subclasses: PagamentoDinheiro (sobrescreve exibindo "Pago em dinheiro: R$ <valor>"), PagamentoCartao (atributo bandeira (String); exibe "Cartao <bandeira>: R$ <valor>") e PagamentoPix (exibe "PIX confirmado: R$ <valor>").
+ - Pedido: Lista de ItemPedido com adicionarItem() e calcularTotal() que soma todos os subtotais. Tambem possui uma lista de FormaPagamento com adicionarPagamento(). O metodo fecharPedido() exibe o total e chama realizarPagamento() para cada forma de pagamento - sem instanceof ou if/else.
+
+a) Implemente todas as classes com boas praticas de POO.
+b) No main: crie um pedido com pelo menos 2 produtos distintos e registre dois pagamentos (ex: parte em Dinheiro, parte em Pix). Chame fecharPedido() e mostre nos comentarios a saida esperada.
+c) Explique em ate tres linhas por que as subclasses PagamentoDinheiro, PagamentoCartao e PagamentoPix sobrescrevem realizarPagamento() em vez de criar metodos com nomes diferentes."
+
+RESPOSTA ESPERADA:
+- Criar Produto.
+- Criar ItemPedido.
+- Criar FormaPagamento.
+- Criar PagamentoDinheiro, PagamentoCartao e PagamentoPix.
+- Criar Pedido com lista de itens e lista de pagamentos.
+- Fazer fecharPedido() chamar realizarPagamento() polimorficamente.
+
+RESPOSTA CONCEITUAL DA LETRA C:
+Porque todas as formas de pagamento compartilham o mesmo contrato comportamental, e a sobrescrita permite tratar todas de forma uniforme via polimorfismo.
+
+
+QUESTAO 8
+ENUNCIADO COMPLETO:
+"O setor de RH de uma empresa precisa de um sistema para calcular bonificacoes. Implemente:
+ - Funcionario (superclasse): atributos nome (String) e salario (double). Construtor completo, getters, setters e metodo calcularBonus() que retorna 0.
+ - Supervisor (herda de Funcionario): sobrescreve calcularBonus() retornando 5% do salario.
+ - Gerente (herda de Funcionario): sobrescreve calcularBonus() retornando 15% do salario.
+ - Diretor (herda de Funcionario): sobrescreve calcularBonus() retornando 25% do salario.
+ - CalculadoraBonus: possui uma lista de Funcionario com metodo adicionarFuncionario(Funcionario f) e metodo exibirBonificacoes() que percorre a lista e imprime, para cada funcionario, nome, cargo (use getClass().getSimpleName()) e valor do bonus - sem instanceof ou if/else.
+
+a) Implemente todas as classes.
+b) No main: instancie a CalculadoraBonus, adicione pelo menos um de cada tipo de funcionario usando referencias do tipo Funcionario, e chame exibirBonificacoes().
+c) Se o RH decidir criar um novo cargo Estagiario com bonus de 2%, quais classes precisariam ser criadas ou alteradas? Justifique sua resposta em ate tres linhas."
+
+RESPOSTA ESPERADA:
+- Criar Funcionario.
+- Criar Supervisor, Gerente e Diretor sobrescrevendo calcularBonus().
+- Criar CalculadoraBonus com lista de Funcionario.
+- Exibir usando polimorfismo, sem instanceof.
+
+RESPOSTA CONCEITUAL DA LETRA C:
+Criar a classe Estagiario herdando de Funcionario e sobrescrever calcularBonus(). Em uma modelagem bem feita, a CalculadoraBonus nao precisa ser alterada.
+
+
+
+2a PROVA OFICIAL - PROGRAMACAO ORIENTADA A OBJETOS
+
+
+QUESTAO 1
+ENUNCIADO COMPLETO:
+"Voce esta desenhando o modulo de auditoria de documentos da aplicacao UNIPAR. O sistema precisa processar validacoes para as classes CPF, CNPJ, RG e Passaporte. Todas as quatro classes devem possuir obrigatoriamente o metodo public boolean validarRegra();. Contudo, por exigencias do modelo de dominio atual do sistema, as classes de documentos especificos ja herdam diretamente de uma classe base corporativa chamada EstruturaEntidade.
+Considerando as restricoes de heranca da linguagem Java, qual estrutura deve ser utilizada para implementar o contrato de validacao e qual a justificativa tecnica correta?"
+
+Alternativas identificadas no PDF:
+- Deve-se utilizar uma Classe Abstrata, pois ela permite adiar as especificidades de implementacao para as subclasses concretas de documentos.
+- Deve-se utilizar uma Interface, pois o Java nao suporta heranca multipla de classes. Como as classes de documentos ja estendem EstruturaEntidade, a unica forma de obriga-las a assumir o contrato de validacao comum e implementando uma interface.
+- Tanto uma classe abstrata quanto uma interface serviriam identicamente, pois o NetBeans permite heranca multipla de superclasses desde que o metodo utilize a anotacao @Override.
+- Deve-se utilizar um ENUM, pois documentos consistem em listas de valores pre-definidos que impedem a extensao de qualquer outra classe na aplicacao.
+
+RESPOSTA:
+A correta e:
+"Deve-se utilizar uma Interface, pois o Java nao suporta heranca multipla de classes. Como as classes de documentos ja estendem EstruturaEntidade, a unica forma de obriga-las a assumir o contrato de validacao comum e implementando uma interface."
+
+EXPLICACAO:
+Como a superclasse ja esta ocupada, o contrato comum deve vir por interface.
+
+
+QUESTAO 2
+ENUNCIADO COMPLETO:
+"Considerando que voce possui a classe de conexao implementada no exercicio, realize a implementacao da classe Repository para gravacao e leitura dos dados desta tabela do banco de dados postgres. Deve-se implementar apenas os metodos de insert e findAll:
+
+public class ProfessorRepository {
+    private String INSERT
+            = "INSERT INTO professor(nome, ativo)VALUES(?, ?);";
+
+    private String FIND_ALL
+            = "SELECT id, nome, ativo FROM professor;";
+
+    public void insert(Professor prof) throws SQLException {
+    }
+
+    public ArrayList<Professor> findAll() throws SQLException {
+    }
+}"
+
+RESPOSTA ESPERADA:
+- No insert:
+  - abrir Connection
+  - criar PreparedStatement com INSERT
+  - setar nome e ativo
+  - executar executeUpdate()
+  - fechar recursos
+
+- No findAll:
+  - abrir Connection
+  - criar PreparedStatement com FIND_ALL
+  - executar executeQuery()
+  - percorrer ResultSet
+  - criar Professor para cada linha
+  - adicionar em ArrayList<Professor>
+  - fechar recursos
+
+RESPOSTA MODELO RESUMIDA:
+Usar Connection, PreparedStatement e ResultSet para implementar insert e findAll dentro do padrao Repository com JDBC.
+
+
+QUESTAO 3
+ENUNCIADO COMPLETO:
+"De acordo com os conceitos vistos em sala:
+a) Driver JDBC
+b) DriverManager
+c) Connection
+d) PreparedStatement
+e) ResultSet
+f) Bloco try / catch
+g) throw
+h) finally
+i) throws
+j) Checked Exceptions
+k) Unchecked Exceptions
+l) Errors
+
+E suas definicoes abaixo:
+( ) E o trecho de codigo em que uma excecao e esperada e o bloco subsequente prepara-se para pegar a excecao ocorrida e dar a ela o tratamento necessario.
+( ) E possivel que voce proprio envie uma excecao em alguma situacao especifica, como em uma situacao de login em que o usuario digita incorretamente sua senha. Para realizarmos tal tarefa e necessaria a utilizacao da palavra-chave em questao.
+( ) Sao excecoes nao diretamente previstas por acontecer em tempo de execucao.
+( ) Reune conjuntos de classes e interfaces escritas na linguagem Java na qual possibilita se conectar atraves de um driver especifico ao banco de dados desejado.
+( ) Possui os metodos close e prepareStatement.
+( ) Sao um tipo especial de Exception que representam erros da JVM, tais como estouro de memoria, entre outros. Para este tipo de erro normalmente nao e feito tratamento, pois sempre que ocorre a execucao do programa e interrompida.
+( ) Representa um trecho de codigo que sera sempre executado, independentemente se uma excecao ocorrer.
+( ) Classe responsavel por registrar os drivers dos bancos de dados que se deseja utilizar e que oferece metodos de gerenciamento para eles.
+( ) Caso em algum metodo precise lancar uma excecao, mas voce nao deseja trata-la, quer retorna-la para o objeto que fez a chamada ao metodo que lancou a excecao, basta utilizar a palavra chave em questao no final da assinatura do metodo.
+( ) Sao excecoes ja previstas pelo compilador. Como ela e prevista ja em tempo de compilacao, a propria IDE ou compilador sinalizam a obrigatoriedade do tratamento.
+( ) Representa o conjunto de resultados de uma tabela no banco de dados. Esse objeto mantem o cursor apontando para a sua linha atual de dados, sendo que seu inicio fica posicionado na primeira linha.
+( ) Representa a instrucao SQL que sera executada. Nesta interface que estende a interface sao listados os metodos executeQuery e executeUpdate que sao considerados os mais importantes referente a execucao de uma query.
+
+Assinale a alternativa que representa a associacao correta entre as definicoes e suas respectivas palavras chave:"
+
+RESPOSTA CORRETA DA ASSOCIACAO:
+1. Bloco try / catch
+2. throw
+3. Unchecked Exceptions
+4. Driver JDBC
+5. Connection
+6. Errors
+7. finally
+8. DriverManager
+9. throws
+10. Checked Exceptions
+11. ResultSet
+12. PreparedStatement
+
+SEQUENCIA EM LETRAS:
+F, G, K, A, C, L, H, B, I, J, E, D
+
+
+QUESTAO 4
+ENUNCIADO COMPLETO:
+"No ecossistema Java, a classe Throwable e a classe base de todas as condicoes anormais que alteram ou interrompem o fluxo de execucao de um programa. A partir dela, a API do Java ramifica o tratamento de falhas em tres categorias principais com propositos arquiteturais totalmente distintos: Checked Exceptions (Excecoes Checadas), Unchecked Exceptions (Excecoes Nao Checadas / RuntimeException) e Errors (Erros da JVM).
+Considerando as diretrizes de Engenharia de Software e a filosofia de design que envolve essas tres categorias, assinale a alternativa que descreve corretamente a natureza e a aplicacao dessas estruturas:"
+
+Alternativas identificadas no PDF:
+- Um Error representa uma falha simples de programacao (...) e deve ser capturado com try/catch.
+- As Checked Exceptions sao aquelas que ocorrem exclusivamente devido a erros serios de hardware na JVM (...).
+- As Unchecked Exceptions (subclasses de RuntimeException) representam condicoes anormais que acontecem em tempo de execucao, geralmente associadas a erros de logica do programador (...). A filosofia do Java nao obriga o tratamento rigido delas em tempo de compilacao porque, conceitualmente, o programador deve corrigir a falha logica do codigo para evitar que o erro aconteca, em vez de apenas mascara-lo com um catch.
+- A palavra-chave throw e uma clausula obrigatoria utilizada exclusivamente no final da assinatura dos metodos (...).
+
+RESPOSTA:
+A correta e a alternativa que descreve as Unchecked Exceptions como falhas de logica em tempo de execucao, normalmente ligadas a RuntimeException.
+
+EXPLICACAO:
+- Checked Exceptions: previstas pelo compilador.
+- Unchecked Exceptions: falhas normalmente de logica em tempo de execucao.
+- Errors: falhas graves da JVM.
+- throw: lanca excecao no corpo do codigo.
+- throws: declara propagacao na assinatura.
+
+
+QUESTAO 5
+ENUNCIADO COMPLETO:
+"No desenvolvimento orientado a objetos com Java, as classes abstratas ocupam um papel central na modelagem de hierarquias de heranca bem estruturadas. Ao contrario das classes concretas comuns, as classes abstratas sao intencionalmente projetadas sob uma filosofia de 'incompletude'.
+Com base nos conceitos discutidos em sala de aula, assinale a alternativa que descreve corretamente a importancia arquitetural e o comportamento das classes abstratas:"
+
+Alternativas identificadas no PDF:
+- As classes abstratas servem unicamente para contornar a impossibilidade de heranca multipla do Java, permitindo que uma subclasse herde simultaneamente de varias superclasses abstratas.
+- Por serem consideradas classes incompletas, as classes abstratas sao estritamente proibidas de possuir metodos concretos (com corpo e logica de negocio), atuando exatamente como uma interface pura que so contem assinaturas de metodos.
+- O proposito de uma classe abstrata e atuar exclusivamente como uma superclasse em hierarquias de heranca, impossibilitando a sua instanciacao direta. Sua grande relevancia arquitetural esta em permitir a heranca de codigo generico (preservando comportamentos comuns) e adiar as especificidades de implementacao para as fases posteriores, onde as subclasses concretas serao obrigadas a declarar as "partes ausentes".
+- Quando uma subclasse estende uma superclasse abstrata, ela herda seus metodos, mas torna-se automaticamente abstrata tambem, sendo impossivel torna-la uma classe concreta para a instanciacao de objetos.
+
+RESPOSTA:
+A correta e:
+"O proposito de uma classe abstrata e atuar exclusivamente como uma superclasse em hierarquias de heranca, impossibilitando a sua instanciacao direta. Sua grande relevancia arquitetural esta em permitir a heranca de codigo generico (preservando comportamentos comuns) e adiar as especificidades de implementacao para as fases posteriores, onde as subclasses concretas serao obrigadas a declarar as partes ausentes."
+
+EXPLICACAO:
+Classe abstrata nao pode ser instanciada diretamente, pode ter metodos concretos e abstratos e serve como base para especializacao.
+
+
+QUESTAO 6
+ENUNCIADO COMPLETO:
+"Dado o cenario em que voce precisa se conectar com um banco de dados do tipo postgres, no que esta executando localmente no seu computador na porta 5432 com usuario e senha com o banco de dados chamado prova. Crie a classe que retorne a conexao com esse banco de dados."
+
+RESPOSTA ESPERADA:
+Criar uma classe do tipo ConnectionFactory com um metodo getConnection() que retorne uma Connection usando DriverManager.getConnection(...).
+
+RESPOSTA MODELO:
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConnectionFactory {
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+            "jdbc:postgresql://localhost:5432/prova",
+            "postgres",
+            "postgres"
+        );
+    }
+}
+
+
+==================================================
+RESUMO DO QUE MAIS CAIU NAS DUAS PROVAS
+==================================================
+
+- Classe e objeto
+- Modificadores de acesso
+- Assinatura de metodo
+- Sobrecarga e sobrescrita
+- this e super
+- Construtores
+- Heranca
+- Polimorfismo sem instanceof
+- Classe abstrata
+- Interface
+- Checked, unchecked, errors
+- throw e throws
+- JDBC
+- ConnectionFactory
+- Repository
+
