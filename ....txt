@@ -1,6 +1,3 @@
-REVISAO SUB POO - SOLUCOES DAS QUESTOES DE CODIGO
-
-Este arquivo reúne as solucoes das questoes praticas encontradas nas provas e nos conteudos do semestre.
 
 ==================================================
 1. PLATAFORMA DE STREAMING
